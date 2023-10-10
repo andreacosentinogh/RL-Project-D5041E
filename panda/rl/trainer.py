@@ -61,9 +61,9 @@ class Trainer():
         # TODO: Insert your wandb account user and project name below
         # Weights and Biases (wandb) is used for logging, set the account details below or dry run above
             # user or team name
-            entity = 'your-user-name'
+            entity = 'andrea-cosentino2001'
             # project name
-            project = 'your-project-name'
+            project = 'my-awesome-project'
 
             wandb.init(
                 resume=config.run_name,
