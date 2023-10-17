@@ -28,15 +28,15 @@ def run(config):
     config.num_workers = MPI.COMM_WORLD.Get_size() # total no. of processes is a size of communicator
 
     if config.is_chef:
-        logger.warn('Run a base worker.')
+        logger.warning('Run a base worker.')
         make_log_files(config)
     else:
-        logger.warn('Run worker %d and disable logger.', config.rank)
+        logger.warning('Run worker %d and disable logger.', config.rank)
         import logging
         logger.setLevel(logging.CRITICAL)
 
     def shutdown(signal, frame):
-        logger.warn('Received signal %s: exiting', signal)
+        logger.warning('Received signal %s: exiting', signal)
         sys.exit(128+signal)
 
     signal.signal(signal.SIGHUP, shutdown)
@@ -51,6 +51,7 @@ def run(config):
     # set the display no. configured with gpu
     os.environ["DISPLAY"] = ":0"
     # use gpu or cpu
+    config.gpu = None
     if config.gpu is not None:
         os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(config.gpu)
         assert torch.cuda.is_available()
